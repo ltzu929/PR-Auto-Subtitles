@@ -1,0 +1,134 @@
+body {
+    background-color: #232323;
+    color: #b2b2b2;
+    font-family: "Adobe Clean", "Segoe UI", sans-serif;
+    font-size: 12px;
+    margin: 0;
+    padding: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+h3 {
+    margin: 5px 0;
+    color: #e0e0e0;
+    border-bottom: 1px solid #3e3e3e;
+    padding-bottom: 5px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, select {
+    background-color: #3e3e3e;
+    border: 1px solid #1a1a1a;
+    color: #e0e0e0;
+    padding: 4px;
+    border-radius: 2px;
+}
+
+input:focus, select:focus {
+    border-color: #0078d7;
+    outline: none;
+}
+
+button {
+    background-color: #4a4a4a;
+    border: 1px solid #1a1a1a;
+    color: #e0e0e0;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #5a5a5a;
+}
+
+button:active {
+    background-color: #3a3a3a;
+}
+
+.primary-btn {
+    background-color: #0078d7;
+    border-color: #005a9e;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.primary-btn:hover {
+    background-color: #1084e3;
+}
+
+.small-btn {
+    width: 30px;
+    padding: 4px;
+    align-self: flex-end;
+    margin-top: -26px; /* Hacky alignment */
+}
+
+.log-area {
+    margin-top: 10px;
+    border-top: 1px solid #3e3e3e;
+    padding-top: 10px;
+}
+
+#logContent {
+    background-color: #1a1a1a;
+    padding: 5px;
+    height: 100px;
+    overflow-y: auto;
+    font-family: monospace;
+    white-space: pre-wrap;
+    border: 1px solid #3e3e3e;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #3e3e3e;
+    width: 100%;
+    margin: 5px 0;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.checkbox-group label {
+    font-weight: normal;
+    margin-left: 2px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin: 0;
+}
+
+.external-link {
+    float: right;
+    color: #0078d7;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 11px;
+}
+
+.external-link:hover {
+    text-decoration: underline;
+    color: #4da6ff;
+}

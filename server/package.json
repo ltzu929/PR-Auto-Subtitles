@@ -1,0 +1,10 @@
+{
+  "name": "pr-auto-subtitles-server",
+  "version": "1.0.0",
+  "description": "Backend logic for Auto Subtitles CEP extension",
+  "main": "main-process.js",
+  "dependencies": {
+    "cos-nodejs-sdk-v5": "^2.12.4",
+    "tencentcloud-sdk-nodejs": "^4.0.700"
+  }
+}
