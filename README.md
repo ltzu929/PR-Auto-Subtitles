@@ -39,9 +39,6 @@
 2.  定位到 `HKEY_CURRENT_USER\Software\Adobe\CSXS.11` (对应 PR 2022+)。
 3.  新建字符串值 `PlayerDebugMode`，值为 `1`。
 
-**macOS:**
-终端运行：`defaults write com.adobe.CSXS.11 PlayerDebugMode 1`
-
 ## 📖 使用说明
 
 ## 2. 使用方法
