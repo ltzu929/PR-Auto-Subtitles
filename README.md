@@ -1,4 +1,4 @@
-# Adobe Premiere Pro 自动字幕插件 (Tencent Cloud Edition)
+# Adobe Premiere Pro 自动字幕插件
 
 这是一个 Adobe Premiere Pro CEP 扩展插件，利用腾讯云 ASR（语音识别）服务，自动将序列中的音频转换为 SRT 字幕并导入回项目中。
 
