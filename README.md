@@ -10,38 +10,39 @@
 *   **高级配置**：支持热词表、数字转换模式、脏词过滤等高级选项。
 *   **安全可靠**：密钥保存在本地，支持直接跳转腾讯云控制台管理资源。
 
-## 🛠️ 开发与构建
+## 📥 下载与安装
 
-如果你是从 GitHub 下载的源码，请按照以下步骤初始化：
+### 方式一：普通用户 
 
-1.  进入 `server` 目录：
+1.  前往本项目的 [**Releases (发布页)**](https://github.com/ltzu929/PR-Auto-Subtitles/releases) 。
+2.  下载最新的 `PR-Auto-Subtitles.zip` 压缩包。
+3.  解压后，将整个文件夹复制到 Adobe 扩展目录：
+    *   **Windows:** `C:\Program Files (x86)\Common Files\Adobe\CEP\extensions\`
+4.  **重要**：运行注册表脚本开启调试模式（见下文）。
+
+### 方式二：开发者 
+如果你想修改代码：
+
+1.  克隆仓库或下载源码。
+2.  进入 `server` 目录并安装依赖：
     ```bash
     cd server
-    ```
-2.  安装依赖：
-    ```bash
     npm install
     ```
+3.  放入扩展目录进行调试。
 
-## 📖 使用说明
-
-### 1. 安装部署
-
-### 步骤一：移动插件文件夹
-将整个 `PR-Auto-Subtitles` 文件夹复制到 Adobe 的扩展目录中：
-
-*   **Windows:** `C:\Program Files (x86)\Common Files\Adobe\CEP\extensions\`
-
-### 步骤二：开启调试模式 (关键)
-由于本插件未经过 Adobe 官方签名，必须开启调试模式才能加载。
+### ⚠️ 开启调试模式 (必须步骤)
+由于插件未签名，首次安装必须开启调试模式，否则无法加载。
 
 **Windows:**
 1.  按 `Win + R`，输入 `regedit` 打开注册表编辑器。
-2.  找到路径：`HKEY_CURRENT_USER\Software\Adobe\CSXS.11` (对应 PR 2022/2023，如果是旧版本可能是 CSXS.9 或 CSXS.10)。
-3.  右键空白处 -> 新建 -> **字符串值 (String Value)**。
-4.  名称：`PlayerDebugMode`
-5.  数值数据：`1`
-6.  *(建议对 CSXS.9, CSXS.10, CSXS.11 都执行此操作以确保兼容)*
+2.  定位到 `HKEY_CURRENT_USER\Software\Adobe\CSXS.11` (对应 PR 2022+)。
+3.  新建字符串值 `PlayerDebugMode`，值为 `1`。
+
+**macOS:**
+终端运行：`defaults write com.adobe.CSXS.11 PlayerDebugMode 1`
+
+## 📖 使用说明
 
 ## 2. 使用方法
 
