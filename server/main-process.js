@@ -262,8 +262,6 @@ async function run(csInterface, config, logFn) {
         if (sentenceList.length === 0) {
             logFn("警告: 无法提取有效的字幕数据，生成空字幕");
             logFn("原始数据: " + (typeof resultData === 'string' ? resultData.substring(0, 200) : "Object"));
-        } else {
-            logFn(`成功解析出 ${sentenceList.length} 条字幕句子`);
         }
         
         // 调用生成器生成 SRT 内容
