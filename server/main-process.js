@@ -58,7 +58,7 @@ async function run(csInterface, config, logFn) {
 
     try {
         // --- 步骤 1: 导出音频 ---
-        logFn("正在导出音频...");
+        logFn(`正在导出音频至: ${audioPath}`);
         
         if (!fs.existsSync(presetPath)) {
             throw new Error(`找不到导出预设文件: ${presetPath}`);
@@ -116,7 +116,7 @@ async function run(csInterface, config, logFn) {
         logFn("上传成功，URL已获取。");
 
         // --- 步骤 3: 提交 ASR 语音识别任务 ---
-        logFn("正在提交语音识别任务...");
+        logFn(`正在提交语音识别任务... (模型: ${config.engineModelType || "16k_zh"})`);
         
         const clientConfig = {
             credential: {
@@ -262,6 +262,8 @@ async function run(csInterface, config, logFn) {
         if (sentenceList.length === 0) {
             logFn("警告: 无法提取有效的字幕数据，生成空字幕");
             logFn("原始数据: " + (typeof resultData === 'string' ? resultData.substring(0, 200) : "Object"));
+        } else {
+            logFn(`成功解析出 ${sentenceList.length} 条字幕句子`);
         }
         
         // 调用生成器生成 SRT 内容
@@ -297,8 +299,7 @@ async function run(csInterface, config, logFn) {
         }
 
         // --- 清理工作 ---
-        // 删除本地临时音频文件
-        try { fs.unlinkSync(audioPath); } catch(e) {}
+        // (本地音频文件清理已移至 finally 块，确保无论成功失败都会删除)
         
         // 删除云端 COS 文件 (节省存储费用)
         try {
@@ -311,6 +312,9 @@ async function run(csInterface, config, logFn) {
 
     } catch (err) {
         throw err;
+    } finally {
+        // 确保无论成功还是失败，都删除本地临时音频文件
+        try { fs.unlinkSync(audioPath); } catch(e) {}
     }
 }
 
