@@ -34,9 +34,10 @@ function log(msg) {
  */
 window.onload = function() {
     loadConfig();
+    setupAutoSave();
     // refreshTracks(); // 不再需要
 
-    document.getElementById("btnSave").addEventListener("click", saveConfig);
+    // document.getElementById("btnSave").addEventListener("click", saveConfig); // 已移除保存按钮
     // document.getElementById("btnRefresh").addEventListener("click", refreshTracks); // 不再需要
     document.getElementById("btnStart").addEventListener("click", startProcess);
 
@@ -72,11 +73,10 @@ function loadConfig() {
 }
 
 /**
- * 保存用户配置到 localStorage
- * 这样用户下次打开插件时无需重新输入
+ * 获取当前界面上的配置信息
  */
-function saveConfig() {
-    var config = {
+function getUiConfig() {
+    return {
         secretId: document.getElementById("secretId").value,
         secretKey: document.getElementById("secretKey").value,
         bucket: document.getElementById("bucket").value,
@@ -88,8 +88,37 @@ function saveConfig() {
         convertNumMode: document.getElementById("convertNumMode").value,
         removePunctuation: document.getElementById("removePunctuation").checked
     };
+}
+
+/**
+ * 设置自动保存监听器
+ */
+function setupAutoSave() {
+    var inputs = ["secretId", "secretKey", "bucket", "region", "hotwordId"];
+    var selects = ["engineModelType", "convertNumMode"];
+    
+    inputs.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener("input", saveConfig);
+    });
+    
+    selects.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener("change", saveConfig);
+    });
+
+    var checkbox = document.getElementById("removePunctuation");
+    if (checkbox) checkbox.addEventListener("change", saveConfig);
+}
+
+/**
+ * 保存用户配置到 localStorage
+ * 这样用户下次打开插件时无需重新输入
+ */
+function saveConfig() {
+    var config = getUiConfig();
     localStorage.setItem("tencentConfig", JSON.stringify(config));
-    log("配置已保存");
+    // log("配置已保存"); // 自动保存时不输出日志，避免刷屏
 }
 
 /**
@@ -136,13 +165,16 @@ function startProcess() {
     //     return;
     // }
 
-    var config = JSON.parse(localStorage.getItem("tencentConfig") || "{}");
+    // 使用当前界面上的配置，而不是 localStorage 中的旧配置
+    var config = getUiConfig();
+    
     if (!config.secretId || !config.secretKey || !config.bucket) {
         alert("请先完善并保存腾讯云配置！");
         return;
     }
 
     log("=== 开始任务 ===");
+    log("当前配置: 去除标点=" + config.removePunctuation);
     
     // 1. 禁用按钮防止重复点击
     document.getElementById("btnStart").disabled = true;

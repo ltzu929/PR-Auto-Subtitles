@@ -265,8 +265,7 @@ async function run(csInterface, config, logFn) {
         }
         
         // 调用生成器生成 SRT 内容
-        
-        // 调用生成器生成 SRT 内容
+        logFn(`正在生成 SRT (去除标点: ${config.removePunctuation})`);
         const srtContent = srtGenerator.generateSRT(sentenceList, offsetSeconds, config.removePunctuation);
         
         // 获取项目名称 (增加容错处理)
