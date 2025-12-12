@@ -68,6 +68,7 @@ function loadConfig() {
     document.getElementById("engineModelType").value = config.engineModelType || "16k_zh";
     document.getElementById("hotwordId").value = config.hotwordId || "";
     document.getElementById("convertNumMode").value = config.convertNumMode || "1";
+    document.getElementById("removePunctuation").checked = config.removePunctuation || false;
 }
 
 /**
@@ -84,7 +85,8 @@ function saveConfig() {
         // 保存高级设置
         engineModelType: document.getElementById("engineModelType").value,
         hotwordId: document.getElementById("hotwordId").value,
-        convertNumMode: document.getElementById("convertNumMode").value
+        convertNumMode: document.getElementById("convertNumMode").value,
+        removePunctuation: document.getElementById("removePunctuation").checked
     };
     localStorage.setItem("tencentConfig", JSON.stringify(config));
     log("配置已保存");

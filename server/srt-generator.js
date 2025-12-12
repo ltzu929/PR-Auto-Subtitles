@@ -26,9 +26,10 @@ function formatTime(seconds) {
  * 
  * @param {Array} sentenceList - 腾讯云返回的句子列表，每个对象包含 StartTime, EndTime, Text
  * @param {number} offsetSeconds - 序列入点偏移量 (秒)。因为导出的音频是从入点开始的，所以字幕时间需要加上这个偏移。
+ * @param {boolean} removePunctuation - 是否去除标点
  * @returns {string} 完整的 SRT 文件内容
  */
-function generateSRT(sentenceList, offsetSeconds) {
+function generateSRT(sentenceList, offsetSeconds, removePunctuation) {
     if (!sentenceList || sentenceList.length === 0) {
         return "";
     }
@@ -42,6 +43,13 @@ function generateSRT(sentenceList, offsetSeconds) {
         var startTime = (sentence.StartTime / 1000) + offsetSeconds;
         var endTime = (sentence.EndTime / 1000) + offsetSeconds;
         var text = sentence.Text;
+
+        if (removePunctuation) {
+            // 匹配常见的中英文标点符号
+            // 英文: .,\/#!$%\^&\*;:{}=\-_`~()
+            // 中文: ？。，、；：‘’“”《》【】
+            text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()？。，、；：‘’“”《》【】]/g, "");
+        }
 
         // SRT 格式块:
         // 序号

@@ -267,7 +267,7 @@ async function run(csInterface, config, logFn) {
         // 调用生成器生成 SRT 内容
         
         // 调用生成器生成 SRT 内容
-        const srtContent = srtGenerator.generateSRT(sentenceList, offsetSeconds);
+        const srtContent = srtGenerator.generateSRT(sentenceList, offsetSeconds, config.removePunctuation);
         
         // 获取项目名称 (增加容错处理)
         let projectName = "Project";
