@@ -192,6 +192,7 @@ function startProcess() {
         log("插件根目录: " + extensionRoot);
 
         var serverScriptPath = path.join(extensionRoot, 'server', 'main-process.js');
+        var srtGeneratorPath = path.join(extensionRoot, 'server', 'srt-generator.js');
         log("后端脚本路径: " + serverScriptPath);
         
         // 检查文件是否存在
@@ -210,12 +211,19 @@ function startProcess() {
             // 这里简单尝试，如果失败不影响流程
             if (typeof window.require === 'function') {
                  delete require.cache[require.resolve(serverScriptPath)];
+                 try { delete require.cache[require.resolve(srtGeneratorPath)]; } catch(e) {}
             } else {
                  var moduleName = window.cep.node.require.resolve(serverScriptPath);
                  delete window.cep.node.global.require.cache[moduleName];
+                 
+                 try {
+                     var srtModuleName = window.cep.node.require.resolve(srtGeneratorPath);
+                     delete window.cep.node.global.require.cache[srtModuleName];
+                 } catch(e) {}
             }
         } catch(e) {
             // 忽略清除缓存的错误
+            log("清除缓存警告: " + e.message);
         }
         
         // 加载主流程模块
